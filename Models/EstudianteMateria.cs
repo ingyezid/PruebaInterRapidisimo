@@ -9,10 +9,10 @@ namespace PruebaInterRapidisimo.Models
 
         [Required]
         public int EstudianteId { get; set; }
-        public virtual Estudiante Estudiante { get; set; } = null!;
+        public virtual Estudiante? Estudiante { get; set; }
 
         [Required]
         public int MateriaId { get; set; }
-        public virtual Materia Materia { get; set; } = null!;
+        public virtual Materia? Materia { get; set; }
     }
 }

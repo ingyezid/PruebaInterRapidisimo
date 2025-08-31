@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace PruebaInterRapidisimo.Models
 {
@@ -18,5 +19,8 @@ namespace PruebaInterRapidisimo.Models
         [Required]
         [MaxLength(50)]
         public string Apellidos { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<Materia>? Materias { get; set; } 
     }
 }

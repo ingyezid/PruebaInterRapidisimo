@@ -25,6 +25,6 @@ namespace PruebaInterRapidisimo.Models
         public ProgramaCreditos ProgramaCreditos { get; set; }
 
         [JsonIgnore]
-        public  virtual ICollection<EstudianteMateria> EstudianteMaterias { get; set; } = new List<EstudianteMateria>();
+        public  virtual ICollection<EstudianteMateria>? EstudianteMaterias { get; set; }
     }
 }

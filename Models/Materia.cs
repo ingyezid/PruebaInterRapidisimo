@@ -17,10 +17,10 @@ namespace PruebaInterRapidisimo.Models
 
         [Required]
         public int ProfesorId { get; set; }
-        public virtual Profesor Profesor { get; set; } = null!;
+        public virtual Profesor? Profesor { get; set; }
 
         [JsonIgnore]
-        public virtual ICollection<EstudianteMateria> EstudianteMaterias { get; set; } = new List<EstudianteMateria>();
+        public virtual ICollection<EstudianteMateria>? EstudianteMaterias { get; set; } 
 
     }
 }
