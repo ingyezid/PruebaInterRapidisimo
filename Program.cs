@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using PruebaInterRapidisimo.DataContext;
+using PruebaInterRapidisimo.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,11 @@ builder.Services.AddRazorPages();
 // base de datos relacional y en sql server
 builder.Services.AddSqlServer<ProjectContext>(builder.Configuration.GetConnectionString("conexionProject"));
 
+// agregando lo servicios
+builder.Services.AddScoped<IEstudianteService, EstudianteService>();
+builder.Services.AddScoped<IProfesorService, ProfesorService>();
+builder.Services.AddScoped<IMateriaService, MateriaService>();
+builder.Services.AddScoped<IEstudianteMateriaService, EstudianteMateriaService>();
 
 var app = builder.Build();
 
