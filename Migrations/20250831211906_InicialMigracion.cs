@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -12,8 +13,7 @@ namespace PruebaInterRapidisimo.Migrations
                 name: "Estudiantes",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Identificacion = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     Nombres = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Apellidos = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
@@ -28,8 +28,7 @@ namespace PruebaInterRapidisimo.Migrations
                 name: "Profesores",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Identificacion = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     Nombres = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Apellidos = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
@@ -43,11 +42,10 @@ namespace PruebaInterRapidisimo.Migrations
                 name: "Materias",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Nombre = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Creditos = table.Column<int>(type: "int", nullable: false, defaultValue: 3),
-                    ProfesorId = table.Column<int>(type: "int", nullable: false)
+                    ProfesorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -64,10 +62,9 @@ namespace PruebaInterRapidisimo.Migrations
                 name: "EstudianteMaterias",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    EstudianteId = table.Column<int>(type: "int", nullable: false),
-                    MateriaId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    EstudianteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    MateriaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {

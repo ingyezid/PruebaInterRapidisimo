@@ -6,7 +6,7 @@ namespace PruebaInterRapidisimo.Models
     public class Materia
     {
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [Required]
         [MaxLength(100)]
@@ -16,7 +16,7 @@ namespace PruebaInterRapidisimo.Models
         public int Creditos { get; set; } = 3;
 
         [Required]
-        public int ProfesorId { get; set; }
+        public Guid ProfesorId { get; set; }
         public virtual Profesor? Profesor { get; set; }
 
         [JsonIgnore]

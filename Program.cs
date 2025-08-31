@@ -26,7 +26,7 @@ if (!app.Environment.IsDevelopment())
 using (var context = new ProjectContext(app.Configuration))
 {
     context.Database.Migrate();
-    
+    DataSeeder.Seed(context);    
 }
 
 
