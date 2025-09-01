@@ -7,7 +7,7 @@ namespace PruebaInterRapidisimo.Services
 {
     public interface IEstudianteMateriaService
     {
-        List<EstudianteMateria>? Get();
+        List<EstudianteMateria>? GetAll();
         EstudianteMateria? GetById(Guid id);
         Task Save(EstudianteMateria estudianteMateria);
         Task Update(Guid id, EstudianteMateria estudianteMateria);
@@ -23,7 +23,7 @@ namespace PruebaInterRapidisimo.Services
             _context = dbContext;
         }
 
-        public List<EstudianteMateria>? Get()
+        public List<EstudianteMateria>? GetAll()
         {
             var result = _context.EstudianteMaterias.ToList();
 
@@ -39,6 +39,8 @@ namespace PruebaInterRapidisimo.Services
 
         public async Task Save(EstudianteMateria estudianteMateria)
         {
+            estudianteMateria.Id = Guid.NewGuid();
+
             _context.Add(estudianteMateria);
 
             await _context.SaveChangesAsync();

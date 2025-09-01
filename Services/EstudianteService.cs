@@ -1,12 +1,14 @@
-﻿using PruebaInterRapidisimo.DataContext;
+﻿using Microsoft.EntityFrameworkCore;
+using PruebaInterRapidisimo.DataContext;
 using PruebaInterRapidisimo.Models;
+using System.Linq.Expressions;
 
 namespace PruebaInterRapidisimo.Services
 {
     public interface IEstudianteService
     {
-        List<Estudiante>? Get();
-        Estudiante? GetById(Guid id);
+        Task<List<Estudiante>?> GetAll();
+        Task<Estudiante?> GetById(Guid id);
         Task Save(Estudiante estudiante);
         Task Update(Guid id, Estudiante estudiante);
         Task Delete(Guid id);
@@ -21,25 +23,39 @@ namespace PruebaInterRapidisimo.Services
             _context = dbContext;
         }
 
-        public List<Estudiante>? Get()
+        public async Task<List<Estudiante>?> GetAll()
         {
-            var result = _context.Estudiantes.ToList();
+            var result = await _context.Estudiantes.ToListAsync();
 
             return result;
         }
 
-        public Estudiante? GetById(Guid id)
+        public async Task<Estudiante?> GetById(Guid id)
         {
-            var result = _context.Estudiantes.Find(id);
+            var result = await _context.Estudiantes.FindAsync(id);
 
             return result;
         }
 
         public async Task Save(Estudiante estudiante)
         {
-            _context.Add(estudiante);
+            try
+            {
+                estudiante.Id = Guid.NewGuid();
 
-            await _context.SaveChangesAsync();
+                _context.Add(estudiante);
+
+                await _context.SaveChangesAsync();
+
+            }
+            catch (Exception ex)
+            {
+                
+                throw new Exception("Error al guardar el estudiante", ex);
+            }
+
+
+
         }
 
         public async Task Update(Guid id, Estudiante estudiante)
@@ -50,7 +66,7 @@ namespace PruebaInterRapidisimo.Services
             {
                 estudianteActual.Identificacion = estudiante.Identificacion;
                 estudianteActual.Nombres = estudiante.Nombres;
-                estudianteActual.Identificacion = estudiante.Apellidos;
+                estudianteActual.Apellidos = estudiante.Apellidos;
                 estudianteActual.ProgramaCreditos = estudiante.ProgramaCreditos;
 
                 await _context.SaveChangesAsync();

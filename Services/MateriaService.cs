@@ -6,7 +6,7 @@ namespace PruebaInterRapidisimo.Services
 {
     public interface IMateriaService
     {
-        List<Materia>? Get();
+        List<Materia>? GetAll();
         Materia? GetById(Guid id);
         Task Save(Materia materia);
         Task Update(Guid id, Materia materia);
@@ -23,7 +23,7 @@ namespace PruebaInterRapidisimo.Services
         }
 
 
-        public List<Materia>? Get()
+        public List<Materia>? GetAll()
         {
             var result = _context.Materias.ToList();
 
@@ -39,6 +39,9 @@ namespace PruebaInterRapidisimo.Services
 
         public async Task Save(Materia materia)
         {
+
+            materia.Id = Guid.NewGuid();
+
             _context.Add(materia);
 
             await _context.SaveChangesAsync();

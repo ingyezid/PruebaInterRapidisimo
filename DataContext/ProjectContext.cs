@@ -5,16 +5,9 @@ namespace PruebaInterRapidisimo.DataContext
 {
     public class ProjectContext : DbContext
     {
-        protected readonly IConfiguration _config;
-
-        public ProjectContext(IConfiguration configuration)
+        public ProjectContext(DbContextOptions<ProjectContext> options) : base(options)
         {
-            _config = configuration;
-        }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(_config.GetConnectionString("conexionProject"));
         }
 
         public DbSet<Estudiante> Estudiantes { get; set; }

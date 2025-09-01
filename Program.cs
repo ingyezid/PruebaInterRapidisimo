@@ -7,9 +7,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Agregar servicios al contenedor
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddDbContext<ProjectContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("conexionProject")));
 
-// base de datos relacional y en sql server
-builder.Services.AddSqlServer<ProjectContext>(builder.Configuration.GetConnectionString("conexionProject"));
 
 // agregando lo servicios
 builder.Services.AddScoped<IEstudianteService, EstudianteService>();
@@ -27,10 +27,11 @@ if (!app.Environment.IsDevelopment())
 }
 
 // Para que se actualice la base de datos tan pronto se lanza o dice run sin abrir el navegador
-using (var context = new ProjectContext(app.Configuration))
+using (var scope = app.Services.CreateScope())
 {
+    var context = scope.ServiceProvider.GetRequiredService<ProjectContext>();
     context.Database.Migrate();
-    DataSeeder.Seed(context);    
+    DataSeeder.Seed(context);
 }
 
 
