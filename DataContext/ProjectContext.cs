@@ -9,14 +9,14 @@ namespace PruebaInterRapidisimo.DataContext
         {
 
         }
+        
+        public DbSet<Estudiante> Estudiantes { get; set; } = null!;
 
-        public DbSet<Estudiante> Estudiantes { get; set; }
+        public DbSet<Profesor> Profesores { get; set; } = null!;
 
-        public DbSet<Profesor> Profesores { get; set; }
+        public DbSet<Materia> Materias { get; set; } = null!;
 
-        public DbSet<Materia> Materias { get; set; }
-
-        public DbSet<EstudianteMateria> EstudianteMaterias { get; set; }
+        public DbSet<EstudianteMateria> EstudianteMaterias { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PruebaInterRapidisimo.Models;
 using PruebaInterRapidisimo.Services;
 using System.Diagnostics;
@@ -125,6 +126,17 @@ namespace PruebaInterRapidisimo.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        
+        public async Task<IActionResult> Details(Guid id)
+        {
+            var estudiante = await _estudianteService.Details(id);
+
+            if (estudiante == null)
+            {
+                return NotFound();
+            }
+
+            return View(estudiante);
+        }
+
     }
 }

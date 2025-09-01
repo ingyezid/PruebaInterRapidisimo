@@ -10,7 +10,7 @@ namespace PruebaInterRapidisimo.Models
 
         [Required]
         [MaxLength(100)]
-        public string Nombre { get; set; }
+        public string? Nombre { get; set; }
 
         [Required]
         public int Creditos { get; set; } = 3;

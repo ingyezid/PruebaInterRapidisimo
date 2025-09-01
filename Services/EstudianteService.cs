@@ -11,6 +11,7 @@ namespace PruebaInterRapidisimo.Services
         Task Save(Estudiante estudiante);
         Task Update(Guid id, Estudiante estudiante);
         Task Delete(Guid id);
+        Task<Estudiante?> Details(Guid id);
     }
 
     public class EstudianteService : IEstudianteService
@@ -105,6 +106,29 @@ namespace PruebaInterRapidisimo.Services
             catch (Exception ex)
             {
                 throw new Exception("Error al eliminar el estudiante", ex);
+            }
+        }
+
+        public async Task<Estudiante?> Details(Guid id)
+        {
+            try
+            {
+                var estudianteActual = await _context.Estudiantes
+                    .Include(em => em.EstudianteMaterias!)
+                    .ThenInclude(m => m.Materia)
+                    .ThenInclude(p => p.Profesor)
+                    .FirstOrDefaultAsync(e => e.Id == id);
+
+                if (estudianteActual == null)
+                {
+                    throw new Exception("Estudiante no encontrado");
+                }
+
+                return estudianteActual;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener los detalles del estudiante", ex);
             }
         }
     }

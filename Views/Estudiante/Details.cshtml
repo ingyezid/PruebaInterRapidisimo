@@ -1,0 +1,59 @@
+﻿@model PruebaInterRapidisimo.Models.Estudiante
+
+<h2>Detalles del Estudiante</h2>
+
+<div class="card p-3 mb-3">
+    <h4>@Model.Nombres @Model.Apellidos </h4>
+    <p><strong>Documento:</strong> @Model.Identificacion</p>
+</div>
+
+<h4>Materias inscritas</h4>
+
+@if (Model.EstudianteMaterias != null && Model.EstudianteMaterias.Any())
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Materia</th>
+                <th>Profesor</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @if (Model.EstudianteMaterias == null)
+            {
+                <tr>
+                    <td colspan="2">No hay materias inscritas.</td>
+                </tr>
+            }
+            else
+            { 
+
+                @foreach (var em in Model.EstudianteMaterias)
+                {
+                    <tr>
+                        <td>@em.Materia?.Nombre</td>
+                        <td>@(em.Materia != null ? (em.Materia.Profesor != null ? @em.Materia.Profesor.Nombres : "Sin profesor") : "Sin Materia") @(em.Materia != null ? (em.Materia.Profesor != null ? @em.Materia.Profesor.Apellidos : "") : "" ) </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p class="text-warning">El estudiante aún no tiene materias inscritas.</p>
+}
+
+<div class="mt-3">
+    <a asp-controller="Inscripciones" asp-action="Create" asp-route-estudianteId="@Model.Id" class="btn btn-primary">
+        Inscribir Materias
+    </a>
+    <a asp-controller="Inscripciones" asp-action="Compañeros" asp-route-estudianteId="@Model.Id" class="btn btn-info">
+        Ver Compañeros
+    </a>
+</div>
+
+<div class="mt-3">
+    <a asp-action="Index" class="btn btn-secondary">Volver al listado</a>
+</div>

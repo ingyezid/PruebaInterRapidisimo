@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PruebaInterRapidisimo.Models;
+using PruebaInterRapidisimo.Models.ViewModels;
 using System.Diagnostics;
 
 namespace PruebaInterRapidisimo.Controllers

@@ -16,6 +16,8 @@ builder.Services.AddScoped<IEstudianteService, EstudianteService>();
 builder.Services.AddScoped<IProfesorService, ProfesorService>();
 builder.Services.AddScoped<IMateriaService, MateriaService>();
 builder.Services.AddScoped<IEstudianteMateriaService, EstudianteMateriaService>();
+builder.Services.AddScoped<IInscripcionService, InscripcionService>();
+
 
 var app = builder.Build();
 
