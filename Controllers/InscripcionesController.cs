@@ -64,5 +64,17 @@ namespace PruebaInterRapidisimo.Controllers
             ViewBag.EstudianteId = estudianteId;
             return View(resultado);
         }
+
+        // POST: Inscripciones/EliminarInscripciones
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EliminarInscripciones(Guid estudianteId)
+        {
+            var (exito, mensaje) = await _inscripcionService.EliminarInscripcionesAsync(estudianteId);
+            TempData["Mensaje"] = mensaje;
+
+            return RedirectToAction("Details", "Estudiante", new { id = estudianteId });
+        }
+
     }
 }

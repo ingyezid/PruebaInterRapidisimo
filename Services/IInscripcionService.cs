@@ -5,6 +5,7 @@ namespace PruebaInterRapidisimo.Services
     public interface IInscripcionService
     {
         Task<(bool Exito, List<string> Errores)> InscribirMateriasAsync(Guid estudianteId, List<Guid> materiasSeleccionadas);
-        Task<List<CompañerosViewModel>> ObtenerCompañerosAsync(Guid estudianteId);
+        Task<List<CompañerosViewModel>> ObtenerCompañerosAsync(Guid estudianteId);        
+        Task<(bool Exito, string Mensaje)> EliminarInscripcionesAsync(Guid estudianteId);
     }
 }

@@ -98,5 +98,28 @@ namespace PruebaInterRapidisimo.Services
                 return new List<CompañerosViewModel>();
             }
         }
+
+        public async Task<(bool Exito, string Mensaje)> EliminarInscripcionesAsync(Guid estudianteId)
+        {
+            try
+            {
+                var inscripciones = _context.EstudianteMaterias
+                    .Where(em => em.EstudianteId == estudianteId);
+
+                if (!inscripciones.Any())
+                {
+                    return (false, "El estudiante no tiene materias inscritas.");
+                }
+
+                _context.EstudianteMaterias.RemoveRange(inscripciones);
+                await _context.SaveChangesAsync();
+
+                return (true, "Se eliminaron todas las materias inscritas correctamente.");
+            }
+            catch (Exception ex)
+            {
+                return (false, "Ocurrió un error al eliminar las inscripciones: " + ex.Message);
+            }
+        }
     }
 }
