@@ -2,7 +2,7 @@
 using PruebaInterRapidisimo.Models;
 using System.Diagnostics;
 
-namespace PruebaInterRapidisimo
+namespace PruebaInterRapidisimo.Controllers
 {
     public class HomeController : Controller
     {
