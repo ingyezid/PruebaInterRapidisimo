@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PruebaInterRapidisimo.DataContext;
 using PruebaInterRapidisimo.Models;
-using System.Linq.Expressions;
 
 namespace PruebaInterRapidisimo.Services
 {
@@ -25,16 +24,30 @@ namespace PruebaInterRapidisimo.Services
 
         public async Task<List<Estudiante>?> GetAll()
         {
-            var result = await _context.Estudiantes.ToListAsync();
+            try
+            {
+                var result = await _context.Estudiantes.ToListAsync();
 
-            return result;
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener la lista de estudiantes", ex);
+            }
         }
 
         public async Task<Estudiante?> GetById(Guid id)
         {
-            var result = await _context.Estudiantes.FindAsync(id);
+            try
+            {
+                var result = await _context.Estudiantes.FindAsync(id);
 
-            return result;
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener el estudiante por ID", ex);
+            }
         }
 
         public async Task Save(Estudiante estudiante)
@@ -46,42 +59,52 @@ namespace PruebaInterRapidisimo.Services
                 _context.Add(estudiante);
 
                 await _context.SaveChangesAsync();
-
             }
             catch (Exception ex)
             {
-                
+
                 throw new Exception("Error al guardar el estudiante", ex);
             }
-
-
-
         }
 
         public async Task Update(Guid id, Estudiante estudiante)
         {
-            var estudianteActual = _context.Estudiantes.Find(id);
-
-            if (estudianteActual != null)
+            try
             {
-                estudianteActual.Identificacion = estudiante.Identificacion;
-                estudianteActual.Nombres = estudiante.Nombres;
-                estudianteActual.Apellidos = estudiante.Apellidos;
-                estudianteActual.ProgramaCreditos = estudiante.ProgramaCreditos;
+                var estudianteActual = _context.Estudiantes.Find(id);
 
-                await _context.SaveChangesAsync();
+                if (estudianteActual != null)
+                {
+                    estudianteActual.Identificacion = estudiante.Identificacion;
+                    estudianteActual.Nombres = estudiante.Nombres;
+                    estudianteActual.Apellidos = estudiante.Apellidos;
+                    estudianteActual.ProgramaCreditos = estudiante.ProgramaCreditos;
+
+                    await _context.SaveChangesAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al actualizar el estudiante", ex);
             }
         }
 
         public async Task Delete(Guid id)
         {
-            var estudianteActual = _context.Estudiantes.Find(id);
-
-            if (estudianteActual != null)
+            try
             {
-                _context.Remove(estudianteActual);
+                var estudianteActual = _context.Estudiantes.Find(id);
 
-                await _context.SaveChangesAsync();
+                if (estudianteActual != null)
+                {
+                    _context.Remove(estudianteActual);
+
+                    await _context.SaveChangesAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al eliminar el estudiante", ex);
             }
         }
     }

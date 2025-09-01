@@ -1,13 +1,13 @@
-﻿using PruebaInterRapidisimo.DataContext;
+﻿using Microsoft.EntityFrameworkCore;
+using PruebaInterRapidisimo.DataContext;
 using PruebaInterRapidisimo.Models;
-using System.Drawing.Drawing2D;
 
 namespace PruebaInterRapidisimo.Services
 {
     public interface IMateriaService
     {
-        List<Materia>? GetAll();
-        Materia? GetById(Guid id);
+        Task<List<Materia>?> GetAll();
+        Task<Materia?> GetById(Guid id);
         Task Save(Materia materia);
         Task Update(Guid id, Materia materia);
         Task Delete(Guid id);
@@ -23,54 +23,88 @@ namespace PruebaInterRapidisimo.Services
         }
 
 
-        public List<Materia>? GetAll()
+        public async Task<List<Materia>?> GetAll()
         {
-            var result = _context.Materias.ToList();
+            try
+            {
+                var result = await _context.Materias.ToListAsync();
 
-            return result;
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener la lista de materias", ex);
+            }
         }
 
-        public Materia? GetById(Guid id)
+        public async Task<Materia?> GetById(Guid id)
         {
-            var result = _context.Materias.Find(id);
+            try
+            {
+                var result = await _context.Materias.FindAsync(id);
 
-            return result;
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener la materia por ID", ex);
+            }
         }
 
         public async Task Save(Materia materia)
         {
+            try
+            {
+                materia.Id = Guid.NewGuid();
 
-            materia.Id = Guid.NewGuid();
+                _context.Add(materia);
 
-            _context.Add(materia);
-
-            await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al guardar la materia", ex);
+            }
         }
 
         public async Task Update(Guid id, Materia materia)
         {
-            var materiaActual = _context.Materias.Find(id);
-
-            if (materiaActual != null)
+            try
             {
-                materiaActual.Nombre = materia.Nombre;
-                materiaActual.ProfesorId = materia.ProfesorId;
-                materiaActual.Creditos = materia.Creditos;
+                var materiaActual = _context.Materias.Find(id);
 
-                await _context.SaveChangesAsync();
+                if (materiaActual != null)
+                {
+                    materiaActual.Nombre = materia.Nombre;
+                    materiaActual.ProfesorId = materia.ProfesorId;
+                    materiaActual.Creditos = materia.Creditos;
+
+                    await _context.SaveChangesAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al actualizar la materia", ex);
             }
         }
 
 
         public async Task Delete(Guid id)
         {
-            var materiaActual = _context.Materias.Find(id);
-
-            if (materiaActual != null)
+            try
             {
-                _context.Remove(materiaActual);
+                var materiaActual = _context.Materias.Find(id);
 
-                await _context.SaveChangesAsync();
+                if (materiaActual != null)
+                {
+                    _context.Remove(materiaActual);
+
+                    await _context.SaveChangesAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al eliminar la materia", ex);
             }
         }
     }
