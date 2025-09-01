@@ -1,11 +1,11 @@
-﻿@model PruebaInterRapidisimo.Models.Estudiante
+﻿@model PruebaInterRapidisimo.Models.Profesor
 
 @{
-    ViewData["Title"] = "Actualizar Estudiante";
+    ViewData["Title"] = "Actualizar Profesor";
 }
 
 
-<h2>Editar Estudiante</h2>
+<h2>Editar Profesor</h2>
 <div class="row p-3" id="contenedor1">
     <form asp-action="Update">
         <input type="hidden" asp-for="Id" />
@@ -22,7 +22,7 @@
 
                 <div class="form-group">
                     <label asp-for="Nombres" class="fw-bold"></label>
-                    <input asp-for="Nombres" class="form-control"/>
+                    <input asp-for="Nombres" class="form-control" />
                     <span asp-validation-for="Nombres" class="text-danger"></span>
                 </div>
 
@@ -31,21 +31,7 @@
                     <input asp-for="Apellidos" class="form-control" />
                     <span asp-validation-for="Apellidos" class="text-danger"></span>
                 </div>
-
-                <div class="form-group">
-                    <label asp-for="ProgramaCreditos" class="fw-bold"></label>
-                    <select asp-for="ProgramaCreditos" class="form-control">
-                        <option value="indefined">Seleccione</option>
-                        <option value="0">Ingeniería de Sistemas</option>
-                        <option value="1">Ingeniería Electrónica</option>
-                        <option value="2">Ingeniería Mecatrónica</option>
-                        <option value="3">Ingeniería Mecánica</option>
-                        <option value="4">Ingeniería Civil</option>
-                        <option value="5">Ingeniería Química</option>
-                        <option value="6">Ingeniería Ambiental</option>
-                    </select>
-                    <span asp-validation-for="ProgramaCreditos" class="text-danger"></span>
-                </div>
+               
             </div>
 
         </div>

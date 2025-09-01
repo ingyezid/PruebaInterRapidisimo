@@ -1,5 +1,53 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿
+@model IEnumerable<PruebaInterRapidisimo.Models.Profesor>
+
 @{
+    ViewData["Title"] = "Lista de Profesores";
 }
+
+
+
+<h1> Administrador de Profesores </h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary"> Crear Profesor </a>
+</p>
+
+<table class="table" id="contenedor1">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Id)</th>
+            <th>@Html.DisplayNameFor(model => model.Identificacion)</th>
+            <th>@Html.DisplayNameFor(model => model.Nombres)</th>
+            <th>@Html.DisplayNameFor(model => model.Apellidos)</th>            
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @if (Model == null || !Model.Any())
+        {
+            <tr>
+                <td colspan="9" class="text-center">No hay profesores registrados.</td>
+            </tr>
+        }
+        else
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Identificacion)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Nombres)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Apellidos)</td>
+                    <td>
+                        <div class="p-2 d-flex justify-content-between">
+                            <a asp-action="Update" asp-route-id="@item.Id" class="btn btn-info">Actualizar</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Eliminar</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
