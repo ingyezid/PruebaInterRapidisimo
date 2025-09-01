@@ -4,8 +4,8 @@ using PruebaInterRapidisimo.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddRazorPages();
+// Agregar servicios al contenedor
+builder.Services.AddControllersWithViews();
 
 
 // base de datos relacional y en sql server
@@ -19,14 +19,12 @@ builder.Services.AddScoped<IEstudianteMateriaService, EstudianteMateriaService>(
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configuración del pipeline de middlewares
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
-
 
 // Para que se actualice la base de datos tan pronto se lanza o dice run sin abrir el navegador
 using (var context = new ProjectContext(app.Configuration))
@@ -43,6 +41,9 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapRazorPages();
+// Definir la ruta por defecto en MVC
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
